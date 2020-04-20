@@ -1,4 +1,4 @@
-import { generateSecret } from '../../../libs/secret';
+import { generateSecret } from '../../../utils/secret';
 import { prisma } from '../../../../generated/prisma-client';
 
 export default {
