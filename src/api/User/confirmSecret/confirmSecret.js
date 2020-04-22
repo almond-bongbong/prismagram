@@ -1,4 +1,5 @@
 import { prisma } from '../../../../generated/prisma-client';
+import { generateJwt } from '../../../utils/jwt';
 
 export default {
   Mutation: {
@@ -7,8 +8,7 @@ export default {
       const user = await prisma.user({ email });
 
       if (user.loginSecret === secret) {
-        // JWT
-        return 'token';
+        return generateJwt(user.id);
       } else {
         throw Error('Wrong email/secret combination');
       }
