@@ -4,10 +4,10 @@ import { sendSecretMail } from '../../../utils/mail';
 
 export default {
   Mutation: {
-    requestSecret: async (_, args) => {
+    requestSecret: async (_, args, { request }) => {
       const { email } = args;
       const loginSecret = generateSecret();
-      console.log(loginSecret);
+      console.log(request);
 
       try {
         await sendSecretMail(email, loginSecret);
