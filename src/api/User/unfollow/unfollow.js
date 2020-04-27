@@ -3,23 +3,23 @@ import { prisma } from '../../../../generated/prisma-client';
 
 export default {
   Mutation: {
-    addComment: async (_, args, { request, isAuthenticated }) => {
+    unfollow: async (_, args, { request, isAuthenticated }) => {
       isAuthenticated();
+      const { id } = args;
       const { user } = request;
-      const { text, postId } = args;
-
       try {
-        return await prisma.createComment({
-          text,
-          post: {
-            connect: { id: postId },
-          },
-          user: {
-            connect: { id: user.id },
+        await prisma.updateUser({
+          where: { id: user.id },
+          data: {
+            following: {
+              disconnect: {
+                id,
+              },
+            },
           },
         });
+        return true;
       } catch (e) {
-        console.error(e);
         return false;
       }
     },
