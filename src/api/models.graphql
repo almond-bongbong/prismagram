@@ -64,7 +64,7 @@ type File {
 type Room {
   id: ID!
   participants: [User!]!
-  messaged: [Message!]!
+  messages: [Message!]!
   createdAt: String
   updatedAt: String
 }

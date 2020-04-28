@@ -1,4 +1,4 @@
-export const COMMENT_WITH_USER = `
+export const COMMENT_FRAGMENT = `
   fragment CommentWithUser on Comment {
     id
     text
