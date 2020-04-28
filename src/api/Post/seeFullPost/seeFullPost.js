@@ -1,21 +1,18 @@
 import { prisma } from '../../../../generated/prisma-client';
-import { COMMENT_WITH_USER } from '../../../fragments/comment';
+import { FULL_POST_FRAGMENT } from '../../../fragments/post';
 
 export default {
   Query: {
     seeFullPost: async (_, args) => {
-      const { id } = args;
-      const post = await prisma.post({ id });
-      const comments = await prisma
-        .post({ id })
-        .comments()
-        .$fragment(COMMENT_WITH_USER);
-      const likeCount = await prisma
-        .likesConnection({ where: { post: { id } } })
-        .aggregate()
-        .count();
+      const posts = await prisma
+        .posts({ where: { id: args.id, deletedAt: null } })
+        .$fragment(FULL_POST_FRAGMENT);
 
-      return { post, comments, likeCount };
+      if (posts[0]) {
+        return posts[0];
+      } else {
+        throw Error('Not found post');
+      }
     },
   },
 };
