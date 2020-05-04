@@ -18,5 +18,8 @@ export default {
         .likesConnection({ where: { post: { id: parent.id } } })
         .aggregate()
         .count(),
+    files: (parent) => prisma.post({ id: parent.id }).files(),
+    comments: (parent) => prisma.post({ id: parent.id }).comments(),
+    user: (parent) => prisma.post({ id: parent.id }),
   },
 };
