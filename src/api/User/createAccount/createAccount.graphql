@@ -4,5 +4,5 @@ type Mutation {
     email: String!
     name: String
     bio: String
-  ): User!
+  ): Boolean!
 }
