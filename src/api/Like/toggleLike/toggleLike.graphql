@@ -1,3 +1,8 @@
+type ToggleLikeResponse {
+  result: Boolean!
+  likeCount: Int!
+}
+
 type Mutation {
-  toggleLike(postId: String!): Boolean!
+  toggleLike(postId: String!, isLike: Boolean!): ToggleLikeResponse!
 }

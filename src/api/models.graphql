@@ -43,6 +43,7 @@ type Like {
   post: Post!
   createdAt: String
   updatedAt: String
+  deletedAt: String
 }
 
 type Comment {

@@ -35,6 +35,7 @@ type Like {
   post: Post! @relation(name: "LikesOfPost")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+  deletedAt: DateTime
 }
 
 type Comment {

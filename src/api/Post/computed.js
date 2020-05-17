@@ -11,11 +11,16 @@ export default {
           {
             user: { id: request.user.id },
           },
+          {
+            deletedAt: null,
+          },
         ],
       }),
     likeCount: (parent) =>
       prisma
-        .likesConnection({ where: { post: { id: parent.id } } })
+        .likesConnection({
+          where: { post: { id: parent.id }, deletedAt: null },
+        })
         .aggregate()
         .count(),
     files: (parent) => prisma.post({ id: parent.id }).files(),

@@ -1,31 +1,36 @@
-import isAuthenticated from '../../../middlewares/isAuthenticated';
 import { prisma } from '../../../../generated/prisma-client';
 
 export default {
   Mutation: {
     toggleLike: async (_, args, { request, isAuthenticated }) => {
       isAuthenticated();
-      const { postId } = args;
+      const { postId, isLike } = args;
       const { user } = request;
       const likeFindCondition = {
         AND: [{ user: { id: user.id } }, { post: { id: postId } }],
       };
 
-      try {
-        const existingLike = await prisma.$exists.like(likeFindCondition);
+      const existingLike = await prisma.$exists.like(likeFindCondition);
 
+      try {
         if (existingLike) {
-          await prisma.deleteManyLikes(likeFindCondition);
+          await prisma.updateManyLikes({
+            data: { deletedAt: isLike ? null : new Date() },
+            where: likeFindCondition,
+          });
         } else {
           await prisma.createLike({
             user: { connect: { id: user.id } },
             post: { connect: { id: postId } },
           });
         }
-        return true;
+
+        return {
+          result: isLike,
+        };
       } catch (e) {
         console.error(e);
-        return false;
+        return e;
       }
     },
   },
