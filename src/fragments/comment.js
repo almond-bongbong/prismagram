@@ -4,6 +4,7 @@ export const COMMENT_FRAGMENT = `
     text
     user {
       id
+      avatar
       username
     }
   }

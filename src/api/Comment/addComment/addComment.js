@@ -1,5 +1,6 @@
 import isAuthenticated from '../../../middlewares/isAuthenticated';
 import { prisma } from '../../../../generated/prisma-client';
+import { COMMENT_FRAGMENT } from '../../../fragments/comment';
 
 export default {
   Mutation: {
@@ -9,15 +10,17 @@ export default {
       const { text, postId } = args;
 
       try {
-        return await prisma.createComment({
-          text,
-          post: {
-            connect: { id: postId },
-          },
-          user: {
-            connect: { id: user.id },
-          },
-        });
+        return prisma
+          .createComment({
+            text,
+            post: {
+              connect: { id: postId },
+            },
+            user: {
+              connect: { id: user.id },
+            },
+          })
+          .$fragment(COMMENT_FRAGMENT);
       } catch (e) {
         console.error(e);
         return false;

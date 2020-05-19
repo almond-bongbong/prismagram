@@ -2,7 +2,7 @@ import { prisma } from '../../../generated/prisma-client';
 
 export default {
   Post: {
-    isLiked: async (parent, _, { request }) =>
+    isLiked: (parent, _, { request }) =>
       prisma.$exists.like({
         AND: [
           {
@@ -24,7 +24,6 @@ export default {
         .aggregate()
         .count(),
     files: (parent) => prisma.post({ id: parent.id }).files(),
-    comments: (parent) => prisma.post({ id: parent.id }).comments(),
     user: (parent) => prisma.post({ id: parent.id }).user(),
   },
 };

@@ -18,6 +18,8 @@ export const FULL_POST_FRAGMENT = `
       id
       text
       user {
+        id
+        avatar
         username
       }
     }
