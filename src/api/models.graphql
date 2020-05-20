@@ -18,6 +18,9 @@ type User {
   # computed
   isFollowing: Boolean!
   isSelf: Boolean!
+  followingCount: Int!
+  followersCount: Int!
+  postsCount: Int!
 }
 
 type Post {
@@ -35,6 +38,7 @@ type Post {
   # computed
   isLiked: Boolean!
   likeCount: Int!
+  commentCount: Int!
 }
 
 type Like {
@@ -84,6 +88,4 @@ type Message {
 type UserProfile {
   user: User!
   posts: [Post!]!
-  createdAt: String
-  updatedAt: String
 }
