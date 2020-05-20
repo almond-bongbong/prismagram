@@ -6,11 +6,13 @@ export default {
       prisma.posts({ where: { user: { id: parent.id }, deletedAt: null } }),
     isFollowing: (parent, _, { request }) => {
       const me = request.user;
+      if (!me) return false;
+
       return prisma.$exists.user({
         AND: [{ id: me.id }, { following_some: { id: parent.id } }],
       });
     },
-    isSelf: (parent, _, { request }) => parent.id === request.user.id,
+    isSelf: (parent, _, { request }) => parent.id === request.user?.id,
     postsCount: (parent) =>
       prisma
         .postsConnection({ where: { user: { id: parent.id } } })
