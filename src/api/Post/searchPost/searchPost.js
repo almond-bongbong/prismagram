@@ -9,6 +9,7 @@ export default {
             { caption_starts_with: args.term },
             { location_starts_with: args.term },
           ],
+          AND: [{ deletedAt: null }],
         },
       }),
   },

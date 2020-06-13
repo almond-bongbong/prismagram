@@ -10,7 +10,7 @@ export default {
       const followingIds = [...following.map((u) => u.id), user.id];
       return prisma
         .posts({
-          where: { user: { id_in: followingIds } },
+          where: { user: { id_in: followingIds }, deletedAt: null },
           orderBy: 'createdAt_DESC',
         })
         .$fragment(FULL_POST_FRAGMENT);
