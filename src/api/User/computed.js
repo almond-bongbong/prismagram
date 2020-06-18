@@ -1,9 +1,12 @@
 import { prisma } from '../../../generated/prisma-client';
+import { FULL_POST_FRAGMENT } from '../../fragments/post';
 
 export default {
   User: {
     posts: (parent) =>
-      prisma.posts({ where: { user: { id: parent.id }, deletedAt: null } }),
+      prisma
+        .posts({ where: { user: { id: parent.id }, deletedAt: null } })
+        .$fragment(FULL_POST_FRAGMENT),
     isFollowing: (parent, _, { request }) => {
       const me = request.user;
       if (!me) return false;
