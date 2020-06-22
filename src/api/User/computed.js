@@ -5,7 +5,10 @@ export default {
   User: {
     posts: (parent) =>
       prisma
-        .posts({ where: { user: { id: parent.id }, deletedAt: null } })
+        .posts({
+          where: { user: { id: parent.id }, deletedAt: null },
+          orderBy: 'createdAt_DESC',
+        })
         .$fragment(FULL_POST_FRAGMENT),
     isFollowing: (parent, _, { request }) => {
       const me = request.user;
