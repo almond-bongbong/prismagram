@@ -1,4 +1,3 @@
-import isAuthenticated from '../../../middlewares/isAuthenticated';
 import { prisma } from '../../../../generated/prisma-client';
 import { COMMENT_FRAGMENT } from '../../../fragments/comment';
 
