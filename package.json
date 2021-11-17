@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.10.3",
-    "aws-sdk": "^2.701.0",
+    "aws-sdk": "^2.814.0",
     "dotenv": "^8.2.0",
     "expo-facebook": "^8.1.0",
     "graphql-tools": "^5.0.0",
